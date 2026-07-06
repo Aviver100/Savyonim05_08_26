@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>באים להרים לפצועי צה"ל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { font-size: clamp(13px, 3.6vw, 16px); }
+  body {
+    font-family: 'Rubik', 'Segoe UI', Arial, sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 20px 12px 40px;
+    background-color: #071230;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 3%),
+      radial-gradient(circle at 82% 12%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 4%),
+      radial-gradient(circle at 90% 60%, rgba(120,170,255,0.20) 0%, rgba(120,170,255,0) 8%),
+      radial-gradient(circle at 8% 65%, rgba(120,170,255,0.18) 0%, rgba(120,170,255,0) 9%),
+      radial-gradient(circle at 50% 90%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 5%),
+      radial-gradient(circle at 30% 40%, #163467 0%, #0b1f45 45%, #061024 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 480px; width: 100%; position: relative; z-index: 1; }
+
+  h1 {
+    text-align: center;
+    font-size: 1.35em;
+    line-height: 1.4;
+    margin: 6px 0 16px;
+    color: #dcebff;
+    font-weight: 900;
+    text-shadow: 0 2px 12px rgba(80,140,255,0.4);
+  }
+
+  .datetime {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .datetime .big { font-size: 1.45em; font-weight: 900; color: #fff; }
+  .datetime .place { font-size: 0.9em; color: #a9bfe6; margin-top: 4px; }
+
+  .comedians {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .comedian { position: relative; width: 44%; max-width: 160px; }
+  .photo-frame {
+    background: linear-gradient(160deg,#eaf3ff,#cfe3ff);
+    border-radius: 26px;
+    aspect-ratio: 1 / 1.05;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .photo-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo-frame .placeholder-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    color: #7ea3d6;
+  }
+  .sparkle {
+    position: absolute;
+    color: #ff2d95;
+    filter: drop-shadow(0 0 6px rgba(255,45,149,0.6));
+  }
+  .comedian:nth-child(1) .sparkle.big { top: -14px; left: -16px; width: 34px; height: 34px; }
+  .comedian:nth-child(1) .sparkle.small { top: 30px; left: -30px; width: 18px; height: 18px; }
+  .comedian:nth-child(2) .sparkle.big { top: -10px; right: -18px; width: 30px; height: 30px; }
+
+  .name-tag {
+    position: relative;
+    margin: -18px auto 0;
+    width: 88%;
+    background: #cfe6ff;
+    color: #0b1f45;
+    font-weight: 800;
+    font-size: 0.85em;
+    text-align: center;
+    padding: 6px 8px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .comedian:nth-child(1) .name-tag { transform: rotate(-3deg); }
+  .comedian:nth-child(2) .name-tag { transform: rotate(3deg); }
+
+  .sponsors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+    margin-bottom: 22px;
+  }
+  .logo-box { display: flex; align-items: center; }
+  .cal-img { height: 40px; width: auto; }
+  .sevyonim-img { height: 56px; width: auto; }
+  .cal-logo { font-size: 1.5em; font-weight: 800; color: #fff; }
+  .cal-logo span { color: #ff2d95; }
+
+  .sevyonim-logo { display: flex; align-items: center; gap: 8px; }
+  .flower { position: relative; width: 34px; height: 34px; }
+  .flower .center {
+    position: absolute; inset: 6px;
+    background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75em;
+  }
+  .flower .dot {
+    position: absolute; width: 9px; height: 9px; border-radius: 50%;
+    top: 50%; left: 50%;
+    margin: -4.5px 0 0 -4.5px;
+  }
+  .flower .dot:nth-child(1) { background:#f5a623; transform: rotate(0deg) translate(15px) rotate(0deg); }
+  .flower .dot:nth-child(2) { background:#e84c3d; transform: rotate(45deg) translate(15px) rotate(-45deg); }
+  .flower .dot:nth-child(3) { background:#8e44ad; transform: rotate(90deg) translate(15px) rotate(-90deg); }
+  .flower .dot:nth-child(4) { background:#2f8fdb; transform: rotate(135deg) translate(15px) rotate(-135deg); }
+  .flower .dot:nth-child(5) { background:#27ae60; transform: rotate(180deg) translate(15px) rotate(-180deg); }
+  .flower .dot:nth-child(6) { background:#f1c40f; transform: rotate(225deg) translate(15px) rotate(-225deg); }
+  .flower .dot:nth-child(7) { background:#e67e22; transform: rotate(270deg) translate(15px) rotate(-270deg); }
+  .flower .dot:nth-child(8) { background:#3d9970; transform: rotate(315deg) translate(15px) rotate(-315deg); }
+  .sevyonim-text { font-weight: 800; color: #6fcf7e; font-size: 0.95em; }
+
+  .footer-note {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 16px;
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 0.85em;
+    color: #cfe0ff;
+    line-height: 1.7;
+    margin-bottom: 30px;
+  }
+
+  .form-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 20px 18px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+  }
+  .form-card h2 {
+    text-align: center;
+    margin: 0 0 16px;
+    font-size: 1.05em;
+    color: #dcebff;
+  }
+  form { display: flex; flex-direction: column; gap: 16px; }
+  label { font-size: 0.95em; color: #dbe9ff; margin-bottom: 4px; display: block; }
+  input[type="text"], input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.92);
+    font-size: 1em;
+  }
+  .radio-group { display: flex; gap: 20px; }
+  .radio-group label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 1em; margin: 0;
+  }
+  button {
+    margin-top: 8px;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff2d95, #7b5cff);
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: default; }
+  .success { text-align: center; padding: 30px 10px; }
+  .success h2 { color: #7CFC9A; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>באנו להרים לפצועי צה"ל<br>בערב של אוכל טוב<br>צחוק וטירוף חושים</h1>
+
+    <div class="datetime">
+      <div class="big">5 באוגוסט בשעה 18:00</div>
+      <div class="place">בית כאל | מצדה 3 בני ברק</div>
+    </div>
+
+    <div class="comedians">
+      <div class="comedian">
+        <svg class="sparkle big" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
+        <svg class="sparkle small" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
+        <div class="photo-frame">
+          <span class="placeholder-icon">🎤</span>
+          <img src="https://mkn.org.il/productImages2/305/2021/11/15/image1636960139.jpg" alt="גיא הוכמן" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+        </div>
+        <div class="name-tag">גיא הוכמן</div>
+      </div>
+      <div class="comedian">
+        <svg class="sparkle big" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
+        <div class="photo-frame">
+          <span class="placeholder-icon">🎤</span>
+          <img src="https://dugo.co.il/wp-content/uploads/2025/04/%D7%9C%D7%99%D7%90%D7%95%D7%A8-%D7%A1%D7%95%D7%A9%D7%A8%D7%93-%D7%A2%D7%9E%D7%95%D7%93-%D7%90%D7%9E%D7%9F.png" alt="ליאור סושרד" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+        </div>
+        <div class="name-tag">ליאור סושרד</div>
+      </div>
+    </div>
+
+    <div class="sponsors">
+      <div class="logo-box">
+        <img class="cal-img" src="https://attachments.sherutplus.com/logos/cal.png" alt="Cal" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="cal-logo" style="display:none">Cal<span>.</span></div>
+      </div>
+      <div class="logo-box">
+        <img class="sevyonim-img" src="https://savyonim.org/wp-content/uploads/2023/10/logo-trans-300-380.png" alt="סביונים" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="sevyonim-logo" style="display:none">
+          <div class="flower">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <div class="center">❤️</div>
+          </div>
+          <div class="sevyonim-text">סביונים</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      הסעות באמבולנסים מונגשים<br>
+      ההזמנה זוגית. הרשמה מראש חובה בטופס למטה 👇
+    </div>
+
+    <div class="form-card">
+      <h2>הרשמה לאירוע</h2>
+      <form id="regForm">
+        <div>
+          <label for="firstName">שם פרטי</label>
+          <input type="text" id="firstName" required>
+        </div>
+        <div>
+          <label for="lastName">שם משפחה</label>
+          <input type="text" id="lastName" required>
+        </div>
+        <div>
+          <label for="phone">טלפון</label>
+          <input type="tel" id="phone" required>
+        </div>
+        <div>
+          <label>מגיע עם מלווה</label>
+          <div class="radio-group">
+            <label><input type="radio" name="companion" value="כן" required> כן</label>
+            <label><input type="radio" name="companion" value="לא"> לא</label>
+          </div>
+        </div>
+        <div>
+          <label>צריך הסעה</label>
+          <div class="radio-group">
+            <label><input type="radio" name="ride" value="כן" required> כן</label>
+            <label><input type="radio" name="ride" value="לא"> לא</label>
+          </div>
+        </div>
+        <button type="submit" id="submitBtn">שליחה</button>
+      </form>
+
+      <div class="success" id="successMsg" style="display:none">
+        <h2>✅ נרשמת בהצלחה!</h2>
+        <p>נתראה ב-5 באוגוסט 🎉</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSc0iGVi-00uBfrSujRYn9hcZ6rNggF_NZls425b07_Qo55bBg/formResponse";
+  const ENTRY = {
+    firstName: "entry.1677733213",
+    lastName: "entry.144518307",
+    phone: "entry.1011674811",
+    companion: "entry.656119692",
+    ride: "entry.251532919"
+  };
+
+  document.getElementById("regForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.textContent = "שולח...";
+
+    const data = new FormData();
+    data.append(ENTRY.firstName, document.getElementById("firstName").value);
+    data.append(ENTRY.lastName, document.getElementById("lastName").value);
+    data.append(ENTRY.phone, document.getElementById("phone").value);
+    data.append(ENTRY.companion, document.querySelector('input[name="companion"]:checked').value);
+    data.append(ENTRY.ride, document.querySelector('input[name="ride"]:checked').value);
+
+    fetch(FORM_ACTION, {
+      method: "POST",
+      mode: "no-cors",
+      body: data
+    }).finally(function () {
+      document.getElementById("regForm").style.display = "none";
+      document.getElementById("successMsg").style.display = "block";
+    });
+  });
+</script>
+</body>
+</html>
