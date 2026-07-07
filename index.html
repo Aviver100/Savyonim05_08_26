@@ -65,7 +65,7 @@
     gap: 16px;
     margin-bottom: 24px;
   }
-  .comedian {  position: relative; width: 44%; max-width: 160px; }
+  .comedian { position: relative; width: 44%; max-width: 160px; }
   .photo-frame {
     background: linear-gradient(160deg,#eaf3ff,#cfe3ff);
     border: 6px solid #cfe6ff;
@@ -187,7 +187,7 @@
   }
   form { display: flex; flex-direction: column; gap: 16px; }
   label { font-size: 0.95em; color: #dbe9ff; margin-bottom: 4px; display: block; }
-  input[type="text"], input[type="tel"] {
+  input[type="text"], input[type="tel"], input[type="email"] {
     width: 100%;
     padding: 12px;
     border-radius: 10px;
@@ -235,6 +235,42 @@
     font-size: 1em;
     font-weight: bold;
     text-decoration: none;
+  }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(3,8,25,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 10;
+  }
+  .modal-box {
+    background: #0f2456;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 18px;
+    padding: 24px 20px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+  .modal-box p {
+    color: #ffd54f;
+    font-size: 1.05em;
+    line-height: 1.6;
+    margin: 0 0 18px;
+  }
+  .modal-box button {
+    padding: 11px 24px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff2d95, #7b5cff);
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -307,6 +343,10 @@
           <input type="tel" id="phone" required>
         </div>
         <div>
+          <label for="email">כתובת מייל לצורך קבלת עדכונים על האירוע</label>
+          <input type="email" id="email" required>
+        </div>
+        <div>
           <label for="idNumber">מספר זהות</label>
           <input type="text" id="idNumber" required>
         </div>
@@ -320,6 +360,10 @@
             <label><input type="radio" name="rehab" value="רמב&quot;ם"> רמב"ם</label>
             <label><input type="radio" name="rehab" value="אחר"> אחר</label>
           </div>
+        </div>
+        <div id="rehabOtherWrap" style="display:none">
+          <label for="rehabOther">נא ציין / צייני באיזה בית חולים היית מאושפז או הינך מאושפז</label>
+          <input type="text" id="rehabOther">
         </div>
         <div>
           <label for="servedWhere">היכן שירתת</label>
@@ -365,12 +409,20 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="noticeModal" style="display:none">
+    <div class="modal-box">
+      <p><b>שימו לב,</b><br>ערב זה מיועד אך ורק לפצועי גוף ממלחמת חרבות ברזל.</p>
+      <button type="button" id="noticeCloseBtn">הבנתי</button>
+    </div>
+  </div>
+
 <script>
   const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSc0iGVi-00uBfrSujRYn9hcZ6rNggF_NZls425b07_Qo55bBg/formResponse";
   const ENTRY = {
     firstName: "entry.1677733213",
     lastName: "entry.144518307",
     phone: "entry.1011674811",
+    email: "entry.1044809630",
     idNumber: "entry.1563220489",
     rehab: "entry.1460903918",
     servedWhere: "entry.1079653498",
@@ -392,6 +444,29 @@
     });
   });
 
+  const rehabRadios = document.querySelectorAll('input[name="rehab"]');
+  const rehabOtherWrap = document.getElementById("rehabOtherWrap");
+  const rehabOtherInput = document.getElementById("rehabOther");
+  rehabRadios.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      const showOther = radio.value === "אחר" && radio.checked;
+      rehabOtherWrap.style.display = showOther ? "block" : "none";
+      rehabOtherInput.required = showOther;
+      if (!showOther) rehabOtherInput.value = "";
+    });
+  });
+
+  const rideRadios = document.querySelectorAll('input[name="ride"]');
+  const noticeModal = document.getElementById("noticeModal");
+  rideRadios.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      noticeModal.style.display = "flex";
+    });
+  });
+  document.getElementById("noticeCloseBtn").addEventListener("click", function () {
+    noticeModal.style.display = "none";
+  });
+
   document.getElementById("regForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -403,6 +478,7 @@
     data.append(ENTRY.firstName, document.getElementById("firstName").value);
     data.append(ENTRY.lastName, document.getElementById("lastName").value);
     data.append(ENTRY.phone, document.getElementById("phone").value);
+    data.append(ENTRY.email, document.getElementById("email").value);
     data.append(ENTRY.idNumber, document.getElementById("idNumber").value);
     data.append(ENTRY.rehab, document.querySelector('input[name="rehab"]:checked').value);
     data.append(ENTRY.servedWhere, document.getElementById("servedWhere").value);
