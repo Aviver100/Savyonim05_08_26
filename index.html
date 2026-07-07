@@ -68,11 +68,12 @@
   .comedian { position: relative; width: 44%; max-width: 160px; }
   .photo-frame {
     background: linear-gradient(160deg,#eaf3ff,#cfe3ff);
-    border-radius: 26px;
+    border: 6px solid #cfe6ff;
+    border-radius: 30px 42px 34px 46px;
     aspect-ratio: 1 / 1.05;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.4);
   }
   .photo-frame img {
     position: absolute;
@@ -92,36 +93,43 @@
   }
   .sparkle {
     position: absolute;
-    color: #ff2d95;
-    filter: drop-shadow(0 0 6px rgba(255,45,149,0.6));
   }
-  .comedian:nth-child(1) .sparkle.big { top: -14px; left: -16px; width: 34px; height: 34px; }
-  .comedian:nth-child(1) .sparkle.small { top: 30px; left: -30px; width: 18px; height: 18px; }
-  .comedian:nth-child(2) .sparkle.big { top: -10px; right: -18px; width: 30px; height: 30px; }
+  .sparkle.white {
+    color: #fff;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
+  }
+  .sparkle.yellow {
+    color: #ffd400;
+    filter: drop-shadow(0 0 6px rgba(255,212,0,0.7));
+  }
+  .comedian.hochman .sparkle.big { top: -14px; left: -16px; width: 34px; height: 34px; }
+  .comedian.hochman .sparkle.small { top: 30px; left: -30px; width: 18px; height: 18px; }
+  .comedian.sushrad .sparkle.small { bottom: -14px; left: -14px; width: 26px; height: 26px; }
 
   .name-tag {
-    position: relative;
-    margin: -18px auto 0;
-    width: 88%;
+    position: absolute;
+    bottom: -10px;
+    right: -8%;
     background: #cfe6ff;
     color: #0b1f45;
     font-weight: 800;
-    font-size: 0.85em;
+    font-size: 0.8em;
     text-align: center;
-    padding: 6px 8px;
+    padding: 6px 10px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+    transform: rotate(-6deg);
+    white-space: nowrap;
   }
-  .comedian:nth-child(1) .name-tag { transform: rotate(-3deg); }
-  .comedian:nth-child(2) .name-tag { transform: rotate(3deg); }
 
   .sponsors {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 34px;
+    gap: 14px;
     margin-bottom: 22px;
   }
+  .logo-divider { width: 1px; height: 34px; background: rgba(255,255,255,0.5); }
   .logo-box { display: flex; align-items: center; }
   .cal-img { height: 40px; width: auto; }
   .sevyonim-img { height: 56px; width: auto; }
@@ -188,6 +196,7 @@
     font-size: 1em;
   }
   .radio-group { display: flex; gap: 20px; }
+  .radio-group.wrap { flex-wrap: wrap; row-gap: 8px; column-gap: 16px; }
   .radio-group label {
     display: flex; align-items: center; gap: 6px;
     font-size: 1em; margin: 0;
@@ -206,6 +215,13 @@
   button:disabled { opacity: 0.6; cursor: default; }
   .success { text-align: center; padding: 30px 10px; }
   .success h2 { color: #7CFC9A; }
+  .success-flyer {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 16px;
+    margin-top: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
 </style>
 </head>
 <body>
@@ -218,22 +234,22 @@
     </div>
 
     <div class="comedians">
-      <div class="comedian">
-        <svg class="sparkle big" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
-        <svg class="sparkle small" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
-        <div class="photo-frame">
-          <span class="placeholder-icon">🎤</span>
-          <img src="https://mkn.org.il/productImages2/305/2021/11/15/image1636960139.jpg" alt="גיא הוכמן" referrerpolicy="no-referrer" onerror="this.style.display='none'">
-        </div>
-        <div class="name-tag">גיא הוכמן</div>
-      </div>
-      <div class="comedian">
-        <svg class="sparkle big" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
+      <div class="comedian sushrad">
+        <svg class="sparkle yellow small" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
         <div class="photo-frame">
           <span class="placeholder-icon">🎤</span>
           <img src="https://dugo.co.il/wp-content/uploads/2025/04/%D7%9C%D7%99%D7%90%D7%95%D7%A8-%D7%A1%D7%95%D7%A9%D7%A8%D7%93-%D7%A2%D7%9E%D7%95%D7%93-%D7%90%D7%9E%D7%9F.png" alt="ליאור סושרד" referrerpolicy="no-referrer" onerror="this.style.display='none'">
         </div>
         <div class="name-tag">ליאור סושרד</div>
+      </div>
+      <div class="comedian hochman">
+        <svg class="sparkle white big" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
+        <svg class="sparkle white small" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14.5 9.5 L24 12 L14.5 14.5 L12 24 L9.5 14.5 L0 12 L9.5 9.5 Z"/></svg>
+        <div class="photo-frame">
+          <span class="placeholder-icon">🎤</span>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Guy_Hochman_1.jpg/250px-Guy_Hochman_1.jpg" alt="גיא הוכמן" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+        </div>
+        <div class="name-tag">גיא הוכמן</div>
       </div>
     </div>
 
@@ -242,6 +258,7 @@
         <img class="cal-img" src="https://attachments.sherutplus.com/logos/cal.png" alt="Cal" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <div class="cal-logo" style="display:none">Cal<span>.</span></div>
       </div>
+      <div class="logo-divider"></div>
       <div class="logo-box">
         <img class="sevyonim-img" src="https://savyonim.org/wp-content/uploads/2023/10/logo-trans-300-380.png" alt="סביונים" referrerpolicy="no-referrer" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="sevyonim-logo" style="display:none">
@@ -276,17 +293,48 @@
           <input type="tel" id="phone" required>
         </div>
         <div>
-          <label>מגיע עם מלווה</label>
+          <label for="idNumber">מספר זהות</label>
+          <input type="text" id="idNumber" required>
+        </div>
+        <div>
+          <label>שיקום</label>
+          <div class="radio-group wrap">
+            <label><input type="radio" name="rehab" value="איכילוב" required> איכילוב</label>
+            <label><input type="radio" name="rehab" value="תל השומר"> תל השומר</label>
+            <label><input type="radio" name="rehab" value="בלינסון"> בלינסון</label>
+            <label><input type="radio" name="rehab" value="בית לווינשטיין"> בית לווינשטיין</label>
+            <label><input type="radio" name="rehab" value="רמב&quot;ם"> רמב"ם</label>
+            <label><input type="radio" name="rehab" value="אחר"> אחר</label>
+          </div>
+        </div>
+        <div>
+          <label for="servedWhere">היכן שירתת</label>
+          <input type="text" id="servedWhere" required>
+        </div>
+        <div>
+          <label>נגישות</label>
+          <div class="radio-group wrap">
+            <label><input type="radio" name="accessibility" value="כסא גלגלים" required> כסא גלגלים</label>
+            <label><input type="radio" name="accessibility" value="קביים"> קביים</label>
+            <label><input type="radio" name="accessibility" value="מתהלך"> מתהלך</label>
+          </div>
+        </div>
+        <div>
+          <label>מגיע/ה עם בן/בת זוג</label>
           <div class="radio-group">
             <label><input type="radio" name="companion" value="כן" required> כן</label>
             <label><input type="radio" name="companion" value="לא"> לא</label>
           </div>
         </div>
+        <div id="spouseNameWrap" style="display:none">
+          <label for="spouseName">שם בן/בת הזוג</label>
+          <input type="text" id="spouseName">
+        </div>
         <div>
-          <label>צריך הסעה</label>
+          <label>צורך בהסעה מבית החולים</label>
           <div class="radio-group">
-            <label><input type="radio" name="ride" value="כן" required> כן</label>
-            <label><input type="radio" name="ride" value="לא"> לא</label>
+            <label><input type="radio" name="ride" value="הסעה" required> הסעה</label>
+            <label><input type="radio" name="ride" value="הגעה עצמאית"> הגעה עצמאית</label>
           </div>
         </div>
         <button type="submit" id="submitBtn">שליחה</button>
@@ -295,6 +343,7 @@
       <div class="success" id="successMsg" style="display:none">
         <h2>✅ נרשמת בהצלחה!</h2>
         <p>נתראה ב-5 באוגוסט 🎉</p>
+        <img src="flyer.jpg" alt="באנו להרים לפצועי צה&quot;ל" class="success-flyer">
       </div>
     </div>
   </div>
@@ -305,9 +354,25 @@
     firstName: "entry.1677733213",
     lastName: "entry.144518307",
     phone: "entry.1011674811",
+    idNumber: "entry.1563220489",
+    rehab: "entry.1460903918",
+    servedWhere: "entry.1079653498",
+    accessibility: "entry.1495517477",
     companion: "entry.656119692",
+    spouseName: "entry.390165133",
     ride: "entry.251532919"
   };
+
+  const companionRadios = document.querySelectorAll('input[name="companion"]');
+  const spouseNameWrap = document.getElementById("spouseNameWrap");
+  const spouseNameInput = document.getElementById("spouseName");
+  companionRadios.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      const showSpouse = radio.value === "כן" && radio.checked;
+      spouseNameWrap.style.display = showSpouse ? "block" : "none";
+      if (!showSpouse) spouseNameInput.value = "";
+    });
+  });
 
   document.getElementById("regForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -320,7 +385,12 @@
     data.append(ENTRY.firstName, document.getElementById("firstName").value);
     data.append(ENTRY.lastName, document.getElementById("lastName").value);
     data.append(ENTRY.phone, document.getElementById("phone").value);
+    data.append(ENTRY.idNumber, document.getElementById("idNumber").value);
+    data.append(ENTRY.rehab, document.querySelector('input[name="rehab"]:checked').value);
+    data.append(ENTRY.servedWhere, document.getElementById("servedWhere").value);
+    data.append(ENTRY.accessibility, document.querySelector('input[name="accessibility"]:checked').value);
     data.append(ENTRY.companion, document.querySelector('input[name="companion"]:checked').value);
+    data.append(ENTRY.spouseName, spouseNameInput.value);
     data.append(ENTRY.ride, document.querySelector('input[name="ride"]:checked').value);
 
     fetch(FORM_ACTION, {
