@@ -222,6 +222,20 @@
     margin-top: 18px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   }
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 13px 20px;
+    border-radius: 12px;
+    background: #25D366;
+    color: #06331c;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+  }
 </style>
 </head>
 <body>
@@ -344,6 +358,9 @@
         <h2>✅ נרשמת בהצלחה!</h2>
         <p>נתראה ב-5 באוגוסט 🎉</p>
         <img src="flyer.jpg" alt="באנו להרים לפצועי צה&quot;ל" class="success-flyer">
+        <a href="https://wa.me/972526992060" target="_blank" rel="noopener" class="whatsapp-btn">
+          יש שאלות? דברו איתנו בוואטסאפ
+        </a>
       </div>
     </div>
   </div>
@@ -370,6 +387,7 @@
     radio.addEventListener("change", function () {
       const showSpouse = radio.value === "כן" && radio.checked;
       spouseNameWrap.style.display = showSpouse ? "block" : "none";
+      spouseNameInput.required = showSpouse;
       if (!showSpouse) spouseNameInput.value = "";
     });
   });
