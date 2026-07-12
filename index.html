@@ -195,6 +195,14 @@
     background: rgba(255,255,255,0.92);
     font-size: 1em;
   }
+  input.invalid { border-color: #ff4d6d; background: rgba(255,235,238,0.95); }
+  .field-error {
+    color: #ffb3c1;
+    font-size: 0.85em;
+    margin-top: 4px;
+    display: none;
+  }
+  .field-error.show { display: block; }
   .radio-group { display: flex; gap: 20px; }
   .radio-group.wrap { flex-wrap: wrap; row-gap: 8px; column-gap: 16px; }
   .radio-group label {
@@ -348,7 +356,8 @@
         </div>
         <div>
           <label for="idNumber">מספר זהות</label>
-          <input type="text" id="idNumber" required>
+          <input type="text" id="idNumber" inputmode="numeric" maxlength="9" required>
+          <div class="field-error" id="idNumberError">מספר הזהות אינו תקין</div>
         </div>
         <div>
           <label>שיקום</label>
@@ -467,8 +476,41 @@
     noticeModal.style.display = "none";
   });
 
+  function isValidIsraeliID(id) {
+    id = String(id).trim();
+    if (!/^\d{5,9}$/.test(id)) return false;
+    id = id.padStart(9, "0");
+    let sum = 0;
+    for (let i = 0; i < 9; i++) {
+      let digit = Number(id[i]) * ((i % 2) + 1);
+      if (digit > 9) digit -= 9;
+      sum += digit;
+    }
+    return sum % 10 === 0;
+  }
+
+  const idNumberInput = document.getElementById("idNumber");
+  const idNumberError = document.getElementById("idNumberError");
+
+  function validateIdNumberField() {
+    const valid = isValidIsraeliID(idNumberInput.value);
+    idNumberInput.classList.toggle("invalid", !valid);
+    idNumberError.classList.toggle("show", !valid);
+    return valid;
+  }
+
+  idNumberInput.addEventListener("blur", validateIdNumberField);
+  idNumberInput.addEventListener("input", function () {
+    if (idNumberInput.classList.contains("invalid")) validateIdNumberField();
+  });
+
   document.getElementById("regForm").addEventListener("submit", function (e) {
     e.preventDefault();
+
+    if (!validateIdNumberField()) {
+      idNumberInput.focus();
+      return;
+    }
 
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
